@@ -24,8 +24,7 @@ source scripts/ood_env.sh
 ```
 
 Setup creates a Python 3.8 Conda environment and installs the native
-dependencies without administrator access. **No previous `seed-mujoco`
-environment is required.** The experiment folder automatically uses the
+dependencies. The experiment folder automatically uses the
 Seed RL implementation in the parent repository.
 
 The default environment is `seed-experiments`. Reactivate it with
