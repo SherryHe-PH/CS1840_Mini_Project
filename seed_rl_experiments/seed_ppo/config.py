@@ -210,7 +210,9 @@ def _merge_changes(data, changes):
 
 def load_config(path, overrides=None):
     """Read a saved YAML/JSON config; overrides use the same field names."""
-    data = yaml.safe_load(Path(path).read_text()) or {}
+    source = Path(path)
+    text = source.read_text()
+    data = (json.loads(text) if source.suffix.lower() == ".json" else yaml.safe_load(text)) or {}
     if not isinstance(data, Mapping):
         raise ValueError("Config must be a YAML mapping")
     return config_from_dict(_merge_changes(data, overrides or {}))
