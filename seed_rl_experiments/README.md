@@ -17,7 +17,7 @@ one actor and can use a smaller allocation.
 Clone the whole repository, then run setup from its experiment folder:
 
 ```bash
-git clone https://github.com/SherryHe-PH/CS1840_Mini_Project.git
+git clone --branch seed-rl-experiments https://github.com/SherryHe-PH/CS1840_Mini_Project.git
 cd CS1840_Mini_Project/seed_rl_experiments
 bash scripts/setup_ood.sh
 source scripts/ood_env.sh
