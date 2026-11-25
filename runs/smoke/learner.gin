@@ -1,0 +1,127 @@
+import gin.tf.external_configurables
+
+# Macros:
+# ==============================================================================
+lambda = 0.95
+
+# Parameters for Adam:
+# ==============================================================================
+Adam.amsgrad = False
+Adam.beta_1 = 0.9
+Adam.beta_2 = 0.999
+Adam.epsilon = 1e-07
+Adam.name = 'Adam'
+
+# Parameters for AdvantagePreprocessor:
+# ==============================================================================
+AdvantagePreprocessor.only_positive = False
+AdvantagePreprocessor.only_top_half = False
+
+# Parameters for AverageMeanStd:
+# ==============================================================================
+AverageMeanStd.std_max_value = 1000000.0
+AverageMeanStd.std_min_value = 1e-06
+
+# Parameters for continuous_action_config:
+# ==============================================================================
+continuous_action_config.action_gaussian_std_fn = 'safe_exp'
+continuous_action_config.action_min_gaussian_std = 0.001
+continuous_action_config.action_postprocessor = 'Tanh'
+continuous_action_config.action_std_for_zero_param = 1.0
+
+# Parameters for ContinuousControlAgent:
+# ==============================================================================
+ContinuousControlAgent.activation = @tf.nn.tanh
+ContinuousControlAgent.correct_observations = False
+ContinuousControlAgent.input_clipping = 10.0
+ContinuousControlAgent.kernel_init = @hidden/tf.keras.initializers.Orthogonal()
+ContinuousControlAgent.last_kernel_init_policy = \
+    @policy/tf.keras.initializers.Orthogonal()
+ContinuousControlAgent.last_kernel_init_policy_scaling = None
+ContinuousControlAgent.last_kernel_init_value = \
+    @value/tf.keras.initializers.Orthogonal()
+ContinuousControlAgent.last_kernel_init_value_scaling = None
+ContinuousControlAgent.layer_normalizer = None
+ContinuousControlAgent.num_layers_policy = 2
+ContinuousControlAgent.num_layers_rnn = 0
+ContinuousControlAgent.num_layers_value = 2
+ContinuousControlAgent.num_units_policy = 64
+ContinuousControlAgent.num_units_rnn = 256
+ContinuousControlAgent.num_units_value = 64
+ContinuousControlAgent.observation_normalizer = @InputNormalization()
+ContinuousControlAgent.residual_connections = False
+ContinuousControlAgent.shared = True
+ContinuousControlAgent.std_independent_of_input = True
+
+# Parameters for create_optimizer:
+# ==============================================================================
+create_optimizer.optimizer_fn = @tf.keras.optimizers.Adam
+
+# Parameters for FixedCoefficient:
+# ==============================================================================
+# None.
+
+# Parameters for GAE:
+# ==============================================================================
+GAE.lambda_ = %lambda
+GAE.name = 'gam'
+
+# Parameters for GeneralizedAdvantagePolicyLoss:
+# ==============================================================================
+GeneralizedAdvantagePolicyLoss.advantage_transformation = None
+GeneralizedAdvantagePolicyLoss.max_advantage = None
+GeneralizedAdvantagePolicyLoss.max_importance_weight = None
+GeneralizedAdvantagePolicyLoss.temperature = None
+
+# Parameters for GeneralizedOnPolicyLoss:
+# ==============================================================================
+GeneralizedOnPolicyLoss.advantage_estimator = @GAE()
+GeneralizedOnPolicyLoss.baseline_cost = 1.0
+GeneralizedOnPolicyLoss.discount_factor = 0.99
+GeneralizedOnPolicyLoss.handle_abandoned_episodes_properly = True
+GeneralizedOnPolicyLoss.huber_delta = None
+GeneralizedOnPolicyLoss.include_regularization_in_returns = False
+GeneralizedOnPolicyLoss.max_abs_reward = None
+GeneralizedOnPolicyLoss.policy_loss = @ppo()
+GeneralizedOnPolicyLoss.regularizer = @KLPolicyRegularizer()
+GeneralizedOnPolicyLoss.reward_normalizer = @PopArt()
+GeneralizedOnPolicyLoss.reward_scaling = 1.0
+GeneralizedOnPolicyLoss.value_ppo_style_clip_eps = None
+
+# Parameters for InputNormalization:
+# ==============================================================================
+InputNormalization.mean_std_tracker = @AverageMeanStd()
+
+# Parameters for KLPolicyRegularizer:
+# ==============================================================================
+KLPolicyRegularizer.entropy = 0.0
+
+# Parameters for hidden/Orthogonal:
+# ==============================================================================
+hidden/Orthogonal.gain = 1.41421356237
+hidden/Orthogonal.seed = None
+
+# Parameters for policy/Orthogonal:
+# ==============================================================================
+policy/Orthogonal.gain = 0.01
+policy/Orthogonal.seed = None
+
+# Parameters for value/Orthogonal:
+# ==============================================================================
+value/Orthogonal.gain = 1.0
+value/Orthogonal.seed = None
+
+# Parameters for PopArt:
+# ==============================================================================
+PopArt.compensate = False
+PopArt.mean_std_tracker = @AverageMeanStd()
+
+# Parameters for ppo:
+# ==============================================================================
+ppo.advantage_offset = None
+ppo.epsilon = 0.2
+ppo.normalize_advantages = False
+
+# Parameters for tanh:
+# ==============================================================================
+tanh.name = None

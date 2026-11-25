@@ -24,7 +24,8 @@ ContinuousControlAgent.num_units_policy = 64
 ContinuousControlAgent.num_layers_value = 2
 ContinuousControlAgent.num_units_value = 64
 ContinuousControlAgent.activation = @tf.nn.tanh
-ContinuousControlAgent.shared = False
+# Changed from False to True, as defaulted in the paper
+ContinuousControlAgent.shared = True
 ContinuousControlAgent.std_independent_of_input = True
 ContinuousControlAgent.kernel_init = @hidden/tf.keras.initializers.Orthogonal()
 ContinuousControlAgent.last_kernel_init_policy = @policy/tf.keras.initializers.Orthogonal()

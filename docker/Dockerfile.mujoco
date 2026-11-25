@@ -13,13 +13,18 @@
 
 FROM tensorflow/tensorflow:2.4.1-gpu
 
+# Add NVIDIA's current CUDA repository signing key.
+RUN apt-key adv --fetch-keys \
+    https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64/3bf863cc.pub
+
 RUN apt-get update && apt-get install -y \
     libgl1-mesa-dev \
     libglew-dev \
     libosmesa6-dev \
     patchelf \
     tmux \
-    unzip
+    unzip \
+    git
 
 # Download mujoco
 RUN curl https://www.roboti.us/download/mjpro150_linux.zip --output /tmp/mujoco.zip && \
@@ -30,9 +35,18 @@ RUN curl https://www.roboti.us/download/mjpro150_linux.zip --output /tmp/mujoco.
 # Copy the mujoco license key
 COPY mjkey.txt /root/.mujoco/mjkey.txt
 
-RUN pip3 install Cython cffi lockfile glfw imageio dataclasses gin-config
-RUN LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/root/.mujoco/mjpro150/bin pip3 install gym[mujoco]
+# Changed
+#RUN pip3 install Cython cffi lockfile glfw imageio dataclasses gin-config
+RUN pip3 install Cython==0.29.36 cffi lockfile glfw imageio dataclasses gin-config==0.4.0
+# Changed
+#RUN LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/root/.mujoco/mjpro150/bin pip3 install gym[mujoco]
+RUN LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/root/.mujoco/mjpro150/bin pip3 install 'gym[mujoco]==0.18.3'
+
+
 RUN echo 'export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/root/.mujoco/mjpro150/bin' >> /root/.bashrc
+
+#Added
+RUN pip3 install --default-timeout=120 --retries=10 cmake==3.18.4.post1
 
 RUN pip3 install tensorflow_probability==0.11.0
 
