@@ -1,0 +1,5 @@
+name: policy_clip
+group: policy_losses
+parameters:
+  policy_clip: [0.1, 0.2, 0.3]
+  learning_rate: [0.0001, 0.0003]

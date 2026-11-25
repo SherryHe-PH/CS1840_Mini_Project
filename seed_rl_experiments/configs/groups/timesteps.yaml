@@ -1,0 +1,5 @@
+name: discount_factor
+group: timesteps
+parameters:
+  gamma: [0.97, 0.99, 0.999]
+  learning_rate: [0.0001, 0.0003]

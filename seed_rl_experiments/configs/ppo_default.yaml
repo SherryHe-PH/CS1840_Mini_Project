@@ -1,0 +1,66 @@
+# Appendix C, Table 2: fixed PPO baseline, implemented by the SEED on-policy modules.
+# Gym v2 / MuJoCo 2.1 is a runtime port, not the paper's Gym v1 / MuJoCo 2.0 benchmark.
+benchmark: seed_mujoco21_port
+experiment_name: baseline
+thematic_group: baseline
+env_id: Hopper-v2
+seed: 0
+total_timesteps: null  # 1M for Hopper/Walker2d/HalfCheetah; 2M for Ant/Humanoid.
+
+# 3.1 Policy losses
+policy_loss: ppo
+policy_clip: 0.2  # Reciprocal lower threshold: [1/(1+epsilon), 1+epsilon].
+
+# 3.2 Network architecture
+hidden_sizes: [64, 64]
+shared_network: true
+activation: tanh
+orthogonal_gain: 1.41
+policy_head_scale: 0.01  # Scale AFTER orthogonal initialization.
+value_head_scale: 1.0
+initial_std: 1.0
+min_std: 0.001
+action_transform: clip  # Retain raw Gaussian samples; clip only environment actions.
+
+# 3.3 Normalization and clipping
+normalize_observations: true
+observation_clip: 10.0
+normalize_values: true
+normalize_advantages: false
+max_grad_norm: 0.5
+
+# 3.4 Advantage estimation
+gae_lambda: 0.95
+value_clip: 0.2
+value_loss_coefficient: 1.0  # SEED's plain-MSE baseline_cost; no extra factor 1/2.
+batch_mode: split  # Fixed advantages/targets, individual transitions reshuffled each epoch.
+
+# 3.5 Training setup: 2048 TOTAL transitions / 256 envs = 8-step trajectories.
+num_actors: 4
+envs_per_actor: 64
+iteration_size: 2048
+num_epochs: 10
+minibatch_size: 64
+
+# 3.6 Timesteps handling: native task frame skip; ordinary timeouts are terminal.
+gamma: 0.99
+handle_abandoned: false
+
+# 3.7 Optimizers
+learning_rate: 0.0003
+adam_beta1: 0.9
+adam_beta2: 0.999
+adam_epsilon: 0.0000001
+learning_rate_end_fraction: 0.0
+
+# 3.8 Regularization
+entropy_coefficient: 0.0
+
+# Section 2: frozen stochastic policy; raw returns; evaluation is outside the budget.
+eval_interval: 100000
+eval_episodes: 100
+eval_num_envs: 10
+
+# Execution settings, held fixed across scientific comparisons.
+device: cpu
+tensorflow_threads: 1

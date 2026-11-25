@@ -1,0 +1,12 @@
+This experiment layer is intended for the Seed RL fork at
+https://github.com/SherryHe-PH/CS1840_Mini_Project.
+
+The original Seed RL implementation is by The SEED Authors and is licensed
+under Apache License 2.0. The branch preparation script retains its LICENSE,
+AUTHORS, original source files, and a copy of its original README.
+
+Research references:
+  Andrychowicz et al., What Matters In On-Policy Reinforcement Learning?
+  A Large-Scale Empirical Study, arXiv:2006.05990, 2020.
+  Espeholt et al., SEED RL: Scalable and Efficient Deep-RL with Accelerated
+  Central Inference, arXiv:1910.06591, 2019.

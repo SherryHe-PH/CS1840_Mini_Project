@@ -1,0 +1,6 @@
+name: architecture
+group: architecture
+parameters:
+  hidden_sizes: [[64, 64], [128, 128]]
+  shared_network: [true, false]
+  learning_rate: [0.0001, 0.0003]

@@ -1,0 +1,15 @@
+# Python 3.8 Linux x86_64. Core versions match the passing OOD native smoke.
+tensorflow==2.4.1
+tensorflow-probability==0.11.0
+numpy==1.19.5
+protobuf==3.20.3
+gym==0.17.3
+gin-config==0.4.0
+Cython==0.29.36
+mujoco-py==2.1.2.14
+imageio==2.9.0
+Pillow==9.5.0
+PyYAML==6.0.1
+# 3.7+ requires a NumPy version incompatible with TensorFlow 2.4.
+matplotlib==3.5.3
+pytest==7.4.4

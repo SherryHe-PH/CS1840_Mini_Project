@@ -1,0 +1,15 @@
+# Runtime/evaluation plumbing only; not a paper-protocol learning experiment.
+benchmark: smoke
+experiment_name: smoke
+thematic_group: smoke
+env_id: toy_env
+seed: 0
+total_timesteps: 256
+num_actors: 1
+envs_per_actor: 4
+iteration_size: 32
+num_epochs: 1
+minibatch_size: 16
+eval_interval: 128
+eval_episodes: 2
+eval_num_envs: 2
